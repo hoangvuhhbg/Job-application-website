@@ -17,6 +17,7 @@
     border-radius: 50px;
 }
 input{
+    height: 30px;
     font-family: 'Open Sans';
     font-size: 14px;
     color: rgb(105, 105, 105);
@@ -24,5 +25,19 @@ input{
     border-left: 1px solid black;
     margin-left: 20px;
     padding-left: 20px;
+    margin-top: 10px;
     outline: 0;
+}
+button{
+    height: 35px;
+    width: 50%;
+    justify-self: right;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #44ABFE;
+    color: white;
+    border-radius: 50px;
+    border: 0;
+    margin: auto;
 }
