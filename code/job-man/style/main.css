@@ -88,7 +88,7 @@ p{
 }
 
 .toggle input:checked + .slider {
-    background-color: #4caf50;
+    background-color: #44ABFE;
 }
 
 .toggle input:checked + .slider:before {
