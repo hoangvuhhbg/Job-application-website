@@ -1,0 +1,26 @@
+.main{
+    width: 80%;
+    padding: 30px;
+    background-color: white;
+    justify-self: center;
+    margin-top: 30px;
+}
+h1{
+    font-family: 'Open Sans';
+    font-size: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+.item_list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    justify-self: center;
+    width: 100%;
+}
+.item{
+    background-color: rgb(219, 219, 219);
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    position: relative;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox Hình Tròn</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      margin-right: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .custom-checkbox:checked {
+      background-color: #4a90e2;
+      border-color: #4a90e2;
+    }
+
+    .text {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <label class="option">
+    <input type="checkbox" class="custom-checkbox">
+    <span class="text">Nội dung gợi ý</span>
+  </label>
+  <label class="option">
+    <input type="checkbox" class="custom-checkbox">
+    <span class="text">Tạo từ đầu</span>
+  </label>
+</body>
+</html>
