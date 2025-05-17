@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro</title>
+    <link rel="stylesheet" th:href="@{/css/navbar/menu-style.css}">
+</head>
+<style>
+    body{
+        background-image: url(/img/Company/background.jpg);
+        background-size: cover;
+    }
+    .content-box {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 12px;
+        width: fit-content;
+        margin-left: 100px;
+        margin-top: 100px;
+        position: absolute;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .headline {
+        font-family: Arial;
+        font-size: 40px;
+        font-weight: 550;
+    }
+    .subheadline {
+        font-family: Arial;
+        font-size: 20px;
+        font-weight: 400;
+        margin-top: 30px;
+        line-height: 1.5;
+    }
+</style>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
+            <li><a class="ntd" href="/User/Home">Ứng viên</a></li>
+            <li><a class="dk" href="/Company/register">Đăng ký</a></li>
+            <li><a class="dn" href="/Company/login">Đăng nhập</a></li>
+        </ul>
+    </nav>
+    <div class="content-box">
+        <p class="headline">Đăng tin tuyển dụng,<br>tìm kiếm ứng viên hiệu quả  </p>
+        <p class="subheadline">Đăng tin tuyển dụng miễn phí, đơn giản và nhanh chóng<br>
+        <br>Nguồn ứng viên khổng lồ từ nhiều ngành nghề, lĩnh vực khác nhau<br>
+        <br>Toppy AI đề xuất ứng viên tiềm năng, lọc thông tin nổi bật và tự động sắp xếp theo điểm phù hợp</p>
+    </div>
+</body>
+</html>
