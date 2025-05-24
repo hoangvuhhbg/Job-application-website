@@ -54,4 +54,9 @@ public class PageControllerUser {
         entry.addAccount(user);
         return "redirect:/User/login";
     }
+    @GetMapping("/User/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/User/Home";
+    }
 }

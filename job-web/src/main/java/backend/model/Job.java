@@ -1,8 +1,11 @@
 package backend.model;
-import java.time.LocalDate;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Job {
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
     private String id;
     private String position;
     private int num;
@@ -13,11 +16,12 @@ public class Job {
     private String description;
     private String requirment;
     private String benefit;
-    private int wage;
-    private LocalDate date;
-    private int age;
+    private int minWage;
+    private int maxWage;
+    private String age;
     private String experiment;
     private String companyID;
+    private String name;
 
     // Getters & Setters
     public String getId() {
@@ -26,7 +30,12 @@ public class Job {
     public void setId(String id) {
         this.id = id;
     }
-
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getPosition() {
         return position;
     }
@@ -90,24 +99,30 @@ public class Job {
         this.benefit = benefit;
     }
 
-    public int getWage() {
-        return wage;
+    public int getMinWage() {
+        return minWage;
     }
-    public void setWage(int wage) {
-        this.wage = wage;
+    public void setMinWage(int wage) {
+        this.minWage = wage;
+    }
+    public int getMaxWage() {
+        return maxWage;
+    }
+    public void setMaxWage(int wage) {
+        this.maxWage = wage;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

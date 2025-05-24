@@ -15,6 +15,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import backend.model.Company;
+import backend.model.Job;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -23,13 +24,19 @@ public class PageControllerCom {
     private EntryService entry;
     @Autowired
     private Cloudinary cloudinary;
+    @Autowired
+    private JobService jobSer;
 
     //intro page
     @GetMapping("/Company/intro")
     public String homePage(){
         return "Company/intro";
     }
-
+    @GetMapping("/Company/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/Company/intro";
+    }
     //login
     @GetMapping("/Company/login")
     public String loginPage() {
@@ -45,7 +52,7 @@ public class PageControllerCom {
         }
         else{
             model.addAttribute("loginError", "Sai tài khoản hoặc mật khẩu");
-            return "redirect:/User/login";
+            return "redirect:/Company/login";
         }
     }
 
@@ -74,5 +81,23 @@ public class PageControllerCom {
             model.addAttribute("Error", "Có lỗi xảy ra");
             return "redirect:/Company/login";
         }
+    }
+
+    @GetMapping("/Company/Home")
+    public String HomePage(Model model) {
+        return "Company/Home";
+    }
+
+    @GetMapping("/Company/addJob")
+    public String addJobForm(Model model) {
+        Job job = new Job();
+        model.addAttribute("job", job);
+        return "Company/addJob";
+    }
+
+    @PostMapping("/Company/addJob")
+    public String submitJobForm(@ModelAttribute("job") Job job, HttpSession session){
+        jobSer.addJob(session, job);
+        return "redirect:/Company/Home";
     }
 }

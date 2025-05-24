@@ -85,42 +85,71 @@
     </style>
 </head>
 <body>
-    <form id="RegisterForm" th:action="@{/register_Com}" th:object="${Company}" method="post" enctype="multipart/form-data">
-        <h1>Register</h1>
+    <form th:action="@{/Company/addJob}" th:object="${job}" method="post">
+        <h1>Tạo tin tuyển dụng</h1>
         <div class="info-form">
             <div class="full">
-                <h5>Name</h5>
+                <h5>Tiêu đề</h5>
                 <input type="text" th:field="*{name}" required>
             </div>
-            <div class="full">
-                <h5>Email</h5>
-                <input type="email" th:field="*{email}" required>
+            <div class="">
+                <h5>Vị trí</h5>
+                <input type="text" th:field="*{position}" required>
+            </div>
+            <div class="">
+                <h5>Số lượng tuyển</h5>
+                <input type="number" th:field="*{num}" required>
             </div>
             <div>
-                <h5>Password</h5>
-                <input id="password" type="password" th:field="*{Password}" required>
+                <h5>Cách thức làm việc</h5>
+                <select th:field="*{workMethod}" required>
+                    <option value="fullTime">Toàn thời gian</option>
+                    <option value="partTime">Bán thời gian</option>
+                </select>
             </div>
             <div>
-                <h5>Confirm Password</h5>
-                <input id="confirmPassword" type="password" required>
+                <h5>Hạn nộp hồ sơ</h5>
+                <input type="date" th:field="*{date}" required>
+            </div>
+            <div>
+                <h5>Học vấn</h5>
+                <input type="text" th:field="*{level}" required>
+            </div>
+            <div>
+                <h5>Lĩnh vực chuyên môn</h5>
+                <input type="text" th:field="*{major}" required>
+            </div>
+            <div>
+                <h5>Kinh nghiệm làm việc</h5>
+                <input type="text" th:field="*{experiment}" required>
+            </div>
+            <div>
+                <h5>Lương tối thiểu</h5>
+                <input type="number" th:field="*{minWage}" required>
+            </div>
+            <div>
+                <h5>Lương tối đa</h5>
+                <input type="number" th:field="*{maxWage}" required>
+            </div>
+            <div>
+                <h5>Độ tuổi</h5>
+                <input type="text" th:field="*{age}" required>
             </div>
             <div class="full">
-                <h5>address</h5>
+                <h5>Địa chỉ công ty</h5>
                 <input type="text" th:field="*{address}" required>
             </div>
             <div class="full">
-                <h5>Tax number</h5>
-                <input type="text" th:field="*{TaxNum}" required>
+                <h5>Mô tả thêm</h5>
+                <textarea oninput="autoResize(this)" th:field="*{description}" required></textarea>
             </div>
-            <div class = "full">
-                <h5>Logo</h5>
-                <input type="file" class ="file-input" id="fileUpload-logo" accept="image/*" name="logoFile" required>
-                <img id="preview-logo" style="max-width: 50%; max-height: 100px; display: none; object-fit: cover;">
+            <div class="full">
+                <h5>Yêu cầu</h5>
+                <textarea oninput="autoResize(this)" th:field="*{requirment}" required></textarea>
             </div>
-            <div class = "full">
-                <h5>Giấy phép kinh doanh</h5>
-                <input type="file" class ="file-input" id="fileUpload-license" accept="image/*" name="licenseFile" required>
-                <img id="preview-license" style="max-width: 50%; max-height: 100px; display: none; object-fit: cover;">
+            <div class="full">
+                <h5>Quyền lợi</h5>
+                <textarea oninput="autoResize(this)" th:field="*{benefit}" required></textarea>
             </div>
             <div class="full">
                 <button type="submit" style="float: right;width: fit-content;">Submit</button>
@@ -130,45 +159,10 @@
     </form>
     <p th:if="${Error}" th:text="${Error}" style="color: red; text-align: center;"></p>
     <script>
-        //Kiểm tra mật khẩu trùng khớp
-        const form = document.querySelector("#RegisterForm");
-        form.addEventListener("submit", function(e){
-            const pw = document.getElementById("password").value;
-            const cpw = document.getElementById("confirmPassword").value;
-            if(pw != cpw){
-                alert("Mật khẩu không trùng khớp!");
-                e.preventDefault();
-            }
-        });
-
-        //show upload img-logo
-        const fileInput = document.getElementById("fileUpload-logo");
-        const previewImg = document.getElementById("preview-logo");
-        fileInput.addEventListener("change", function () {
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImg.src = e.target.result;
-                    previewImg.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-        //show upload img-license
-        const fileInput1 = document.getElementById("fileUpload-license");
-        const previewImg1 = document.getElementById("preview-license");
-        fileInput1.addEventListener("change", function () {
-            const file = fileInput1.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImg1.src = e.target.result;
-                    previewImg1.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+        function autoResize(textarea) {
+            textarea.style.height = 'auto'; 
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+</script>
 </body>
 </html>
