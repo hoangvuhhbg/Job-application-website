@@ -36,13 +36,10 @@
             <li>Địa điểm</li>
         </ul>
     </div>
-    <div class="container">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+    <div class="container" th:each="job: ${jobs}">
+        <div class="item">
+            <p th:text="${job.name}"></p>
+        </div>
     </div>
 </body>
 </html>

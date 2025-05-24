@@ -10,7 +10,7 @@
     <title>Home Page</title>
     <link rel="stylesheet" th:href="@{/css/navbar/menu-style.css}">
     <link rel="stylesheet" th:href="@{/css/navbar/search-style.css}">
-    <link rel="stylesheet" th:href="@{/css/HomePage/list-style.css}">
+    <link rel="stylesheet" th:href="@{/css/HomePage/list-style1.css}">
 </head>
 <body>
     <nav class="navbar">
@@ -36,13 +36,17 @@
             <li>Địa điểm</li>
         </ul>
     </div>
-    <div class="container">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+    <div class="container" th:each="JobCompany: ${JobCompanys}">
+        <div class="item">
+            <img th:src="${JobCompany.company.logoUrl}">
+            <div>
+                <p th:text="${JobCompany.job.Name}"></p>
+                <p th:text="${JobCompany.company.Name}"></p>
+            </div>
+            <div class="full">
+                <p th:text="${JobCompany.job.minWage}"></p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package backend.Controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import backend.model.JobCompany;
 import backend.model.User;
 import jakarta.servlet.http.HttpSession;
 
@@ -15,9 +18,15 @@ import jakarta.servlet.http.HttpSession;
 public class PageControllerUser {
     @Autowired
     private EntryService entry;
+    @Autowired
+    private JobService jobSer;
+
     //HomePage
     @GetMapping("/User/Home")
-    public String homePage(){
+    public String homePage(Model model){
+        ArrayList<JobCompany> JobCompanys = new ArrayList<>();
+        JobCompanys = jobSer.getJobComList();
+        model.addAttribute("JobCompanys", JobCompanys);
         return "User/Home";
     }
 

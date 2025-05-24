@@ -3,14 +3,20 @@ package backend.Controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import backend.model.Company;
 import backend.model.Job;
+import backend.model.JobCompany;
 import jakarta.servlet.http.HttpSession;
 
 @Service
 public class JobService {
+    @Autowired CompanyService comSer;
+
     public void addJob(HttpSession session, Job job){
         try{
             String companyID = String.valueOf(session.getAttribute("ID"));
@@ -48,5 +54,71 @@ public class JobService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public Job getJob(String ID){
+        try {
+            Conn conn = new Conn();
+            String sql = "Select * from job where id = '"+ID+"'";
+            ResultSet rs = conn.s.executeQuery(sql);
+            if(rs.next()){
+                Job job = new Job();
+                job.setId(ID);
+                job.setPosition(rs.getString("Position"));
+                job.setNum(rs.getInt("num"));
+                job.setWorkMethod(rs.getString("workMethod"));
+                job.setLevel(rs.getString("level"));
+                job.setMajor(rs.getString("major"));
+                job.setAddress(rs.getString("address"));
+                job.setDescription(rs.getString("description"));
+                job.setRequirment(rs.getString("requirment"));
+                job.setBenefit(rs.getString("benefit"));
+                job.setDate(rs.getDate("date"));
+                job.setExperiment(rs.getString("experiment"));
+                job.setCompanyID(rs.getString("CompanyID"));
+                job.setMinWage(rs.getInt("min_wage"));
+                job.setMaxWage(rs.getInt("max_wage"));
+                job.setAge(rs.getString("age"));
+                job.setName(rs.getString("name"));
+                return job;
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<Job> getList(){
+        ArrayList<Job> list = new ArrayList<>();
+        try {
+            Conn conn = new Conn();
+            String sql = "Select ID from job";
+            ResultSet rs = conn.s.executeQuery(sql);
+            while(rs.next()){
+                String ID = rs.getString("ID");
+                Job job = getJob(ID);
+                list.add(job);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<JobCompany> getJobComList(){
+        ArrayList<JobCompany> list = new ArrayList<>();
+        try {
+            Conn conn = new Conn();
+            String sql = "Select ID from job";
+            ResultSet rs = conn.s.executeQuery(sql);
+            while(rs.next()){
+                String ID = rs.getString("ID");
+                Job job = getJob(ID);
+                Company company = comSer.getCompany(job.getCompanyID());
+                list.add(new JobCompany(job, company));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
