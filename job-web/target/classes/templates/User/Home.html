@@ -36,17 +36,29 @@
             <li>Địa điểm</li>
         </ul>
     </div>
-    <div class="container" th:each="JobCompany: ${JobCompanys}">
-        <div class="item">
+    <div class="container">
+        <div class="item" th:each="JobCompany: ${JobCompanys}" th:attr="data-id=${JobCompany.job.id}">
             <img th:src="${JobCompany.company.logoUrl}">
             <div>
-                <p th:text="${JobCompany.job.Name}"></p>
-                <p th:text="${JobCompany.company.Name}"></p>
+                <p class="name" th:text="${JobCompany.job.Name}"></p>
+                <p class="com_name" th:text="${JobCompany.company.Name}"></p>
             </div>
-            <div class="full">
-                <p th:text="${JobCompany.job.minWage}"></p>
+            <div class="full" style="margin-top: 10px;">
+                <span class="wage" th:text="${#numbers.formatDecimal(JobCompany.job.minWage / 1000000, 0, 0)} + 'tr - ' + ${#numbers.formatDecimal(JobCompany.job.maxWage / 1000000, 0, 0)} + 'tr'"></span>
+                <span class="wage" th:text="'Kinh nghiệm: '+${JobCompany.job.experiment}"></span>
             </div>
         </div>
     </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const items = document.querySelectorAll(".item");
+        items.forEach(function(item){
+            item.addEventListener("click", function(){
+                const id = item.getAttribute("data-id");
+                window.location.href = "/User/JobDetail?JobID=" + id;
+            })
+        })
+    });
+</script>
 </body>
 </html>

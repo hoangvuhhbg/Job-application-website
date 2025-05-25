@@ -1,7 +1,7 @@
 .container{
     width: 80%;
     display: grid;
-    grid-template-columns: 32% 32% 32%;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-self: center;
     justify-content: space-between;
     gap: 20px;
@@ -11,10 +11,13 @@
     padding: 10px;
     display: grid;
     grid-template-columns: 3fr 7fr;
-    width: 100%;
+    width: 90%;
     height: 120px;
     background-color: white;
     border-radius: 10px;
+    box-shadow: 0px 1px 3px rgb(93, 93, 93);
+}
+.item:hover{
     box-shadow: 0px 1px 10px rgb(93, 93, 93);
 }
 img{
@@ -23,10 +26,23 @@ img{
     aspect-ratio: 1/1;
     object-fit: cover;
 }
-.item > .name{
+.name{
     font-family: 'Open Sans';
     font-size: 15px;
     font-weight: 600;
+}
+.com_name{
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 500;
+}
+.wage{
+    background-color: #eaeaea;
+    padding: 3px 5px;
+    font-family: 'Open Sans';
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 12px;
 }
 .full{
     grid-column: 1/3;

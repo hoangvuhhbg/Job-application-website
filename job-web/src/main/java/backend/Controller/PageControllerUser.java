@@ -68,4 +68,9 @@ public class PageControllerUser {
         session.invalidate();
         return "redirect:/User/Home";
     }
+
+    @GetMapping("/User/JobDetail")
+    public String JobDetailPage(@RequestParam(value="JobID") String JobId){
+        return "User/JobDetail";
+    }
 }
