@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import backend.model.CVJob;
 import backend.model.Company;
 import backend.model.Job;
 import backend.model.JobCompany;
@@ -117,6 +118,61 @@ public class JobService {
                 list.add(new JobCompany(job, company));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public JobCompany getJobCom(String JobID){
+        Job job = getJob(JobID);
+        Company company = comSer.getCompany(job.getCompanyID());
+        JobCompany jobCompany = new JobCompany(job, company);
+        return jobCompany;
+    }
+    public void applyCV(CVJob cvjob){
+        try{
+            Conn conn = new Conn();
+            String sql = "INSERT INTO CV_job (cv_url, userID, status, date, JobID) " +
+             "VALUES (?, ?, ?, CURRENT_DATE, ?)";
+            PreparedStatement ps = conn.c.prepareStatement(sql);
+            ps.setString(1, cvjob.getCvUrl());
+            ps.setString(2, cvjob.getUserId());
+            ps.setString(3, cvjob.getStatus());
+            ps.setString(4, cvjob.getJobCompany().getJob().getId());
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public CVJob getCVJob(int id){
+        CVJob cvJob = new CVJob();
+        try{
+            Conn conn = new Conn();
+            String sql = "SELECT * from cv_job where id = "+id+"";
+            ResultSet rs = conn.s.executeQuery(sql);
+            if(rs.next()){
+                cvJob.setId(id);
+                cvJob.setCvUrl(rs.getString("cv_url"));
+                cvJob.setUserId(rs.getString("UserID"));
+                cvJob.setStatus(rs.getString("status"));
+                cvJob.setJobCompany((getJobCom(rs.getString("JobID"))));
+                cvJob.setDate(rs.getDate("date"));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cvJob;
+    }
+    public ArrayList<CVJob> getCVJobList(String UserID){
+        ArrayList<CVJob> list = new ArrayList<>();
+        try{
+            Conn conn = new Conn();
+            String sql = "SELECT id from cv_job where UserID = '"+UserID+"'";
+            ResultSet rs = conn.s.executeQuery(sql);
+            if(rs.next()){
+                int id = rs.getInt("id");
+                list.add(getCVJob(id));
+            }
+        }catch (SQLException e) {
             e.printStackTrace();
         }
         return list;

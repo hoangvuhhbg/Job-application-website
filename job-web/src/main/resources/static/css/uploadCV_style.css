@@ -31,12 +31,15 @@ h1{
     margin: 0;
 }
 .buttonFile{
-    background-color: #ccc;
+    display: flex;
+    justify-self: center;
+    align-self: center;
     color: black;
     font-family: 'open sans';
     width: fit-content;
     border-radius: 0%;
     margin-top: 20px;
+    border: 0;
 }
 .button-option{
     margin-bottom: 30px;

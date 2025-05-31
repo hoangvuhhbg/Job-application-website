@@ -14,7 +14,14 @@
 </head>
 <body>
     <nav class="navbar">
-        <ul>
+        <ul th:if="${session.role == 'user'}">
+            <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
+            <li><a class="other" href="/User/qlyCV">Tài khoản</a></li>
+            <li><a class="other" href="/User/qlyCV">Việc làm đã được gửi</a></li>
+            <li><a class="other" href="/User/qlyCV">Quản lý CV</a></li>
+            <li><a class="other" style="float: left;" href="/User/Home">Trang chủ</a></li>
+        </ul>
+        <ul th:unless="${session.role != null}">
             <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
             <li><a class="ntd" href="/Company/intro">Nhà tuyển dụng</a></li>
             <li><a class="dk" href="/User/register">Đăng ký</a></li>
