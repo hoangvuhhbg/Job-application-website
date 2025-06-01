@@ -1,0 +1,18 @@
+.button1{
+    color: white;
+    background-color: #44ABFE;
+    font-family: 'Open Sans';
+}
+.button2{
+    color: #44ABFE;
+    background-color: white;
+    border: 1px solid #44ABFE;
+    font-family: 'Open Sans';
+}
+.button1:hover{
+    border: 2px solid #006ac1;
+}
+.button2:hover{
+    border: 2px solid #006ac1;
+}
+
