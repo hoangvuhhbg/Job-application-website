@@ -3,4 +3,11 @@
 - Download folder này
 - Máy được cài sẵn maven
 - Dùng MySQL làm database
-Sau khi máy được cài maven, 
+
+Sau khi cài được maven, chạy vscode open folder và chọn folder job-web.
+Trong folder Controller trong backend, config lại file Conn.java dòng 18 (c = DriverManager.getConnection("jdbc:mysql://localhost:3306/job_application", "root", "nghvpbm28122004"); với job_application là tên database và nghvpbm28122004 là mật khẩu root
+Thầy tạo database tên job_application hoặc tên khác cũng được chỉ cần đổi tên database trong file trùng với database trong máy, và chỉnh lại mật khẩu trong file theo mật khẩu root máy của thầy
+Sau khi tạo database, set database thành default schema và chạy 6 file trong folder scripts theo thứ tự User -> Company -> job -> cv_upload -> cv_job -> savedjob do có cài đặt khóa ngoại. Đó là cấu trúc bảng và dữ liệu cũ của em.
+Em xin hết ạ.
+
+Nếu chạy vẫn lỗi do kết nối sql thì thầy cài thêm thư viên jdbc để kết nối với sql ạ.
