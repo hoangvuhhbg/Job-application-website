@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV List</title>
+    <link rel="stylesheet" th:href="@{/css/navbar/menu-style.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar/search-style.css}">
+    <link rel="stylesheet" th:href="@{/css/qlyCV-style.css}">
+    <link rel="stylesheet" th:href="@{/css/button.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul th:if="${session.role == 'admin'}">
+            <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
+            <li><a class="other" href="/User/logout">Đăng xuất</a></li>
+            <li><a class="other" href="/Admin/Verify">Kiểm duyệt</a></li>
+            <li><a class="other" href="/Admin/User">Tài khoản người dùng</a></li>
+            <li><a class="other" href="/Admin/Com">Tài khoản công ty</a></li>
+            <li><a class="other" href="/Admin/statistic">Thống kê CV</a></li>
+        </ul>
+    </nav>
+    <div class="main">
+        <h1>Kiểm duyệt</h1>
+        <div class="container">
+            <div class="item" th:each="company:${companys}" th:attr="data-id=${company.id}, data-url=${company.licenseUrl}">
+                <img class="cv" th:src="${company.licenseUrl}">
+                <p th:text="|TaxNum: ${company.taxNum}|"></p>
+                <span><button class="setmain" name="setmain" type="button">Chấp thuận</button></span>
+                <span><button class="del" name="del" type="button">Từ chối</button></span>
+            </div>
+        </div>
+    </div>
+    <div id="cv-popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+        <img id="cv-image" src="" style="object-fit: contain; max-width:90%; max-height:90%; border: 4px solid white; box-shadow: 0 0 15px rgba(0,0,0,0.8);">
+    </div>
+    <form class="" id="setmain" method="post" th:action="@{/Admin/Verify}">
+        <input type="hidden" name="comId" id="verify-comId">
+        <p class="form-content">Bạn có chắc chấp thuận</p>
+        <div class="button-group">
+            <span><button class="button1" onclick="hideForms()" type="submit">Xác nhận</button></span>
+            <span><button class="button2" onclick="hideForms()" type="button">Hủy</button></span>
+        </div>
+    </form>
+    <form id="del" class="" method="post" th:action="@{/Admin/Deny}">
+        <input type="hidden" name="comId" id="deny-comId">
+        <p class="form-content">Bạn có chắc từ chối</p>
+        <div class="button-group">
+            <span><button class="button1" onclick="hideForms()" type="submit">Xác nhận</button></span>
+            <span><button class="button2" onclick="hideForms()" type="button">Hủy</button></span>
+        </div>
+    </form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".setmain").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const item = btn.closest(".item");
+            const cvId = item.getAttribute("data-id");
+
+            document.getElementById("verify-comId").value = cvId;
+            document.getElementById("setmain").classList.add("show");
+        });
+        });
+
+        document.querySelectorAll(".del").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const item = btn.closest(".item");
+            const cvId = item.getAttribute("data-id");
+
+            document.getElementById("deny-comId").value = cvId;
+            document.getElementById("del").classList.add("show");
+        });
+        });
+    });
+
+    function hideForms() {
+        document.getElementById("setmain").classList.remove("show");
+        document.getElementById("del").classList.remove("show");
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const popup = document.getElementById("cv-popup");
+        const image = document.getElementById("cv-image");
+
+        document.querySelectorAll(".cv").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const item = btn.closest(".item");
+                const url = item.getAttribute("data-url");
+                image.src = url;
+                popup.style.display = "flex";
+            });
+        })
+        // Ấn ra ngoài ảnh thì ẩn popup
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.style.display = "none";
+                image.src = "";
+            }
+        });
+    });
+</script>
+</body>
+</html>

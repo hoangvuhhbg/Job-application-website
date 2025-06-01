@@ -1,0 +1,125 @@
+.container{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-self: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 30px;
+}
+.container > .item{
+    position: relative;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    height: fit-content;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px rgb(93, 93, 93);
+}
+.name{
+    font-family: 'Open Sans';
+    font-size: 25px;
+    font-weight: 600;
+}
+.com_name{
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 500;
+}
+.wage{
+    background-color: #eaeaea;
+    padding: 3px 5px;
+    font-family: 'Open Sans';
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 12px;
+}
+.full{
+    grid-column: 1/3;
+}                       
+.detail, .del, .viewCV{
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: 30px;
+}
+.detail:hover, .viewCV:hover{
+    border: 1px solid black;
+}
+.del:hover{
+    background-color: red;
+    color: white;
+}
+.del{
+    top: 90px;
+    right: 10px;
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+}
+.detail{
+    top: 10px;
+    right: 10px;
+}
+.viewCV{
+    top: 50px;
+    right: 10px;
+}
+.show{
+    display: flex;
+}
+form {
+    min-width: 500px;
+    height: fit-content;
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.form-content{
+    font-family: 'Open Sans';
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: right;
+  gap: 10px;
+  margin-top: 10px;
+}
+button{
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+}
+.status{
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+}
+.open{
+    color: rgb(0, 230, 230);
+    border: 1px solid rgb(0, 230, 230);
+}
+.closed{
+    color: red;
+    border: 1px solid red;
+}

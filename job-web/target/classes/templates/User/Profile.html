@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin cá nhân</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar/menu-style.css}">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #007bff;
+        }
+
+        .profile-header h2 {
+            font-family: 'Open Sans';
+            margin-top: 15px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .profile-info {
+            line-height: 1.8;
+            color: #444;
+            display: grid;
+            grid-template-columns: 2fr 8fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .profile-info strong {
+            font-family: 'Open Sans';
+            display: inline-block;
+            width: 120px;
+            font-size: 18px;
+        }
+        input{
+            font-family: 'Open Sans';
+            font-size: 15px;
+            width: 100%;
+        }
+        p{
+            font-family: 'Open Sans';
+        }
+        .status{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+        .full{
+            grid-column: 1 / 3
+        }
+        .custombutton{
+            display: flex;
+            width: 150px;
+            height: fit-content;
+            border-radius: 20px;
+            font-family: 'Open Sans';
+            font-size: 15px;
+            align-self: center;
+            justify-content: center;
+            color: white;
+            border: 0;
+            margin-left: 10px;
+            padding: 5px;
+        }
+        .custombutton:hover{
+            border: 2px solid black;
+        }
+        .turn_on{
+            background-color: #44ABFE;
+        }
+        .turn_off{
+            background-color: red;
+        }
+        .show{
+            display: flex !important;
+        }
+        .popup {
+            min-width: 500px;
+            height: fit-content;
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .form-content{
+            font-family: 'Open Sans';
+            font-size: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: right;
+            gap: 10px;
+            margin-top: 10px;
+            }
+        button{
+            width: fit-content;
+            height: fit-content;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul th:if="${session.role == 'user'}">
+            <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
+            <li><a class="other" href="/User/logout">Đăng xuất</a></li>
+            <li><a class="other" href="/User/Profile">Tài khoản</a></li>
+            <li><a class="other" href="/User/AppliedJob">Việc làm đã ứng tuyển</a></li>
+            <li><a class="other" href="/User/savedJob">Việc làm đã lưu</a></li>
+            <li><a class="other" href="/User/qlyCV">Quản lý CV</a></li>
+            <li><a class="other" style="float: left;" href="/User/Home">Trang chủ</a></li>
+        </ul>
+        <ul th:unless="${session.role != null}">
+            <li style="float: left;"><a class= "logo" href="">TUYENDUNGVN</a></li>
+            <li><a class="ntd" href="/Company/intro">Nhà tuyển dụng</a></li>
+            <li><a class="dk" href="/User/register">Đăng ký</a></li>
+            <li><a class="dn" href="/User/login">Đăng nhập</a></li>
+        </ul>
+    </nav>
+    <div class="profile-container">
+        <div class="profile-header">
+            <!-- <img src="https://via.placeholder.com/120" alt="Avatar"> -->
+            <h2 th:text="${user.name}"></h2>
+            <form class="profile-info" th:object="${user}" method="post" th:action="@{/User/ChangeProfile}">
+                <strong>Email:</strong>
+                <input type="email" th:field="*{email}" required>
+                <strong>Số điện thoại:</strong>
+                <input type="tel" th:field="*{phoneNumber}" required>
+                <strong>Chuyên môn:</strong>
+                <input type="text" th:field="*{major}" required>
+                <strong>Địa chỉ:</strong>
+                <input type="text" th:field="*{address}" required>
+                <strong>Công khai CV:</strong>
+                <div th:if="*{status} == 'private'" class="status">
+                    <p>Không công khai</p>
+                    <button class="custombutton turn_on" type="button" onclick="turnOnForms()">Bật công khai</button>
+                </div>
+                <div th:if="*{status} == 'public'" class="status">
+                    <p>Đang công khai</p>
+                    <button class="custombutton turn_off" type="button" onclick="turnOffForms()">Tắt công khai</button>
+                </div>
+                <button type="submit" class="custombutton full" style="justify-self: center; background-color: #44ABFE;">Thay đổi</button>
+            </form>
+        </div>
+    </div>
+    <form class="popup" id="turnOn" method="post" th:action="@{/User/setStatus}">
+        <input type="hidden" name="status" th:value="${user.status}">
+        <p class="form-content">Bạn có chắc bật chế độ công khai</p>
+        <div class="button-group">
+            <span><button class="button1" onclick="hideForms()" type="submit">Xác nhận</button></span>
+            <span><button class="button2" onclick="hideForms()" type="button">Hủy</button></span>
+        </div>
+    </form>
+    <form id="turnOff" class="popup" method="post" th:action="@{/User/setStatus}">
+        <input type="hidden" name="status" th:value="${user.status}">
+        <p class="form-content">Bạn có chắc xóa chế độ công khai</p>
+        <div class="button-group">
+            <span><button class="button1" onclick="hideForms()" type="submit">Xác nhận</button></span>
+            <span><button class="button2" onclick="hideForms()" type="button">Hủy</button></span>
+        </div>
+    </form>
+</body>
+<script>
+    function turnOnForms() {
+        document.getElementById("turnOn").classList.add("show");
+    }
+    function turnOffForms(){
+        document.getElementById("turnOff").classList.add("show");
+    }
+    function hideForms() {
+        document.getElementById("turnOn").classList.remove("show");
+        document.getElementById("turnOff").classList.remove("show");
+    }
+</script>
+</html>
